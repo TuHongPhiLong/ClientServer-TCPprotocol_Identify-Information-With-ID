@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-ffmpeg-cli/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-ffmpeg-cli/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-fswebcam/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-fswebcam/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-gst1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-gst1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-gstreamer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-gstreamer/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-ipcam/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-ipcam/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-jmf/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-jmf/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-lti-civil/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-lti-civil/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-mjpeg/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-mjpeg/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-opencv/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-opencv/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-openimaj/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-openimaj/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-raspberrypi/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-raspberrypi/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-screencapture/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-screencapture/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-v4l4j/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-v4l4j/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-vlcj/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/driver-vlcj/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture-drivers/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/webcam-capture/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Client1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Entities/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Entities/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Library/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Library/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Login/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Login/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Server/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

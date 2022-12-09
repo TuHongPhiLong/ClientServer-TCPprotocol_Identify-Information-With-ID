@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="850.0" style="-fx-border-color: Black; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.server.ServerController">
+   <Pane fx:id="pane_edit" layoutX="94.0" layoutY="4.0" prefHeight="543.0" prefWidth="748.0" style="-fx-background-color: white;" visible="false">
+      <TableView fx:id="table_subject" layoutX="3.0" layoutY="4.0" onMouseClicked="#getSelected" prefHeight="378.0" prefWidth="748.0" style="-fx-border-color: Black; -fx-background-color: White;">
+         <columns>
+            <TableColumn fx:id="col_ID" prefWidth="25.0" style="-fx-background-color: Green; -fx-border-color: black;" text="ID" />
+            <TableColumn fx:id="col_HovaTen" prefWidth="91.0" style="-fx-background-color: green; -fx-border-color: black;" text="Họ và Tên" />
+            <TableColumn fx:id="col_NgayThangNamSinh" prefWidth="130.0" style="-fx-background-color: green; -fx-border-color: black;" text="Ngày Tháng Năm Sinh" />
+            <TableColumn fx:id="col_GioiTinh" prefWidth="59.0" style="-fx-background-color: green; -fx-border-color: black;" text="Giới tính" />
+            <TableColumn fx:id="col_QuocTich" prefWidth="64.0" style="-fx-background-color: green; -fx-border-color: black;" text="Quốc tịch" />
+            <TableColumn fx:id="col_QueQuan" prefWidth="69.0" style="-fx-background-color: green; -fx-border-color: black;" text="Quê Quán" />
+            <TableColumn fx:id="col_NoiThuongTru" prefWidth="138.0" style="-fx-background-color: green; -fx-border-color: black;" text="Nơi Thường trú" />
+            <TableColumn fx:id="col_CacLoiViPham" prefWidth="173.0" style="-fx-background-color: green; -fx-border-color: black;" text="Các lỗi vi phạm" />
+         </columns>
+      </TableView>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="464.0" mnemonicParsing="false" onAction="#setbtn_page_add" prefHeight="44.0" prefWidth="118.0" style="-fx-background-color: Green; -fx-border-color: Black; -fx-font-size: 18; -fx-text-fill: #ffd000;" text="Thêm" textFill="#e8c30c">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_delete" alignment="CENTER" contentDisplay="CENTER" layoutX="190.0" layoutY="464.0" mnemonicParsing="false" onAction="#setBtn_delete" prefHeight="44.0" prefWidth="118.0" style="-fx-background-color: red; -fx-border-color: Black; -fx-font-size: 18; -fx-text-fill: #fff700;" text="Xoá" textFill="#f8f400">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_page_modify" alignment="CENTER" contentDisplay="CENTER" layoutX="340.0" layoutY="464.0" mnemonicParsing="false" onAction="#setBtn_page_modify" prefHeight="44.0" prefWidth="118.0" style="-fx-background-color: purple; -fx-border-color: black; -fx-font-size: 18; -fx-text-fill: #fff700;" text="Sửa" textFill="#fff700">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_page_addError" alignment="CENTER" contentDisplay="CENTER" layoutX="483.0" layoutY="464.0" mnemonicParsing="false" onAction="#setBtn_page_addError" prefHeight="44.0" prefWidth="166.0" style="-fx-background-color: Green; -fx-border-color: black; -fx-font-size: 18; -fx-text-fill: #ffd000;" text="Thêm lỗi vi phạm" textFill="#ffd000">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <TextField fx:id="tF_search" layoutX="179.0" layoutY="394.0" onAction="#search_subject1" prefHeight="38.0" prefWidth="220.0" promptText="Tiềm Kiếm" style="-fx-border-color: purple;" />
+      <Button fx:id="btn_page_review" alignment="CENTER" contentDisplay="CENTER" layoutX="448.0" layoutY="393.0" mnemonicParsing="false" onAction="#setBtn_page_review" prefHeight="38.0" prefWidth="118.0" style="-fx-background-color: Green; -fx-border-color: black; -fx-font-size: 18; -fx-text-fill: #ffd000;" text="Xem" textFill="#e8c30c">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+   </Pane>
+   <Pane fx:id="pane_initServer" layoutX="91.0" layoutY="4.0" prefHeight="543.0" prefWidth="754.0" style="-fx-background-color: White;">
+      <HBox layoutX="123.0" layoutY="214.0" prefHeight="62.0" prefWidth="238.0" style="-fx-border-color: red;">
+         <Label prefHeight="63.0" prefWidth="71.0" style="-fx-border-color: red;" text="Port:">
+            <font>
+               <Font size="28.0" />
+            </font>
+         </Label>
+         <TextField fx:id="tF_Port" alignment="CENTER" prefHeight="60.0" prefWidth="165.0" style="-fx-font-size: 28; -fx-background-color: white; -fx-border-color: red;" text="8888" />
+      </HBox>
+      <Button fx:id="btn_initServer" alignment="CENTER" contentDisplay="CENTER" layoutX="402.0" layoutY="214.0" mnemonicParsing="false" onAction="#setBtn_initServer" prefHeight="60.0" prefWidth="238.0" style="-fx-background-color: white; -fx-border-color: red; -fx-text-fill: Black; -fx-font-size: 28; -fx-text-alignment: Center;" text="Khởi Tạo Server">
+         <font>
+            <Font name=".VnBodoni" size="96.0" />
+         </font>
+      </Button>
+   </Pane>
+   <Line endX="107.0" endY="-113.0" layoutX="-17.0" layoutY="113.0" startX="107.0" startY="431.5" strokeWidth="3.0">
+      <stroke>
+         <LinearGradient endX="0.7867298578199052" endY="0.6066350710900474" startX="0.4123222748815166" startY="0.4028436018957346">
+            <stops>
+               <Stop>
+                  <color>
+                     <Color opacity="0.8587786555290222" />
+                  </color>
+               </Stop>
+               <Stop offset="1.0">
+                  <color>
+                     <Color red="1.0" green="1.0" blue="1.0" />
+                  </color>
+               </Stop>
+            </stops>
+         </LinearGradient>
+      </stroke>
+   </Line>
+   <VBox alignment="TOP_CENTER" layoutX="3.0" layoutY="4.0" prefHeight="543.0" prefWidth="77.0" style="-fx-background-color: White;">
+      <Button fx:id="btn_page_profile" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setBtn_page_profile" prefHeight="55.0" prefWidth="54.0" style="-fx-background-radius: 30; -fx-text-fill: Black; -fx-background-color: Purple;" text="Profile">
+         <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </VBox.margin>
+      </Button>
+      <Line endX="-17.707107543945312" endY="-7.241964340209961E-5" opacity="0.3" startX="-100.0" />
+      <Button fx:id="btn_page_initServer" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setbtn_page_initServer" prefHeight="51.0" prefWidth="85.0" style="-fx-background-color: White; -fx-text-fill: Black;" text="Init">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Button>
+      <Line endX="-17.707107543945312" endY="-7.241964340209961E-5" opacity="0.3" startX="-100.0" />
+      <Button fx:id="btn_page_edit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setbtn_page_edit" prefHeight="51.0" prefWidth="86.0" style="-fx-background-color: White; -fx-text-fill: Black;" text="Edit">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Button>
+      <Line endX="-17.707107543945312" endY="-7.241964340209961E-5" opacity="0.3" startX="-100.0" />
+   </VBox>
+   <Pane fx:id="pane_profile" layoutX="94.0" layoutY="14.0" prefHeight="224.0" prefWidth="166.0" style="-fx-background-color: white; -fx-border-color: Black;" visible="false">
+      <Line endX="35.5" layoutX="114.0" layoutY="160.0" opacity="0.3" startX="-100.0" />
+      <Line endX="35.5" layoutX="114.0" layoutY="200.0" opacity="0.3" startX="-100.0" />
+      <Button fx:id="btn_logout" alignment="BASELINE_LEFT" layoutX="7.0" layoutY="161.0" mnemonicParsing="false" onAction="#setBtn_logout" prefHeight="31.0" prefWidth="98.0" style="-fx-background-color: White; -fx-text-fill: Black; -fx-alignment: BASELINE_LEFT;" text="Đăng Xuất" textOverrun="CLIP" />
+      <Text fontSmoothingType="LCD" layoutX="15.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Version 1.2" textAlignment="JUSTIFY" />
+   </Pane>
+   <AnchorPane fx:id="pane_page_add" layoutX="159.0" layoutY="13.0" prefHeight="378.0" prefWidth="684.0" style="-fx-background-color: White; -fx-border-color: Black; -fx-border-width: 3;" visible="false">
+      <children>
+         <Line endX="197.0" layoutX="471.0" layoutY="63.0" opacity="0.3" startX="-195.0" />
+         <Button fx:id="btn_uploadFromFile" layoutX="387.0" layoutY="14.0" mnemonicParsing="false" onAction="#setbtn_uploadFromFile" prefHeight="39.0" prefWidth="173.0" style="-fx-text-fill: #007fdb; -fx-background-color: White; -fx-font-size: 18;" text="Tải lên từ máy tính" textFill="#007fdb">
+            <effect>
+               <DropShadow />
+            </effect>
+         </Button>
+         <Label layoutX="278.0" layoutY="68.0" style="-fx-font-size: 18;" text="ID:" />
+         <Label layoutX="278.0" layoutY="96.0" style="-fx-font-size: 18;" text="Họ và Tên:" />
+         <Label layoutX="275.0" layoutY="123.0" style="-fx-font-size: 18;" text="Ngày tháng năm sinh:" />
+         <Label layoutX="278.0" layoutY="151.0" style="-fx-font-size: 18;" text="Giới tính:" />
+         <Label layoutX="279.0" layoutY="178.0" style="-fx-font-size: 18;" text="Quốc tịch:" />
+         <Label layoutX="278.0" layoutY="205.0" style="-fx-font-size: 18;" text="Quê quán:" />
+         <Label layoutX="277.0" layoutY="233.0" style="-fx-font-size: 18;" text="Nơi thường trú:" />
+         <Line endX="197.0" layoutX="471.0" layoutY="92.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="471.0" layoutY="121.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="471.0" layoutY="149.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="472.0" layoutY="177.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="472.0" layoutY="205.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="472.0" layoutY="233.0" opacity="0.3" startX="-195.0" />
+         <Button fx:id="btn_add" layoutX="323.0" layoutY="268.0" mnemonicParsing="false" onAction="#setBtn_add" prefHeight="39.0" prefWidth="130.0" style="-fx-font-size: 18; -fx-border-color: Black; -fx-background-color: Green; -fx-text-fill: #ffd000;" text="Thêm" />
+         <Line endX="197.0" layoutX="472.0" layoutY="260.0" opacity="0.3" startX="-195.0" />
+         <Button layoutX="505.0" layoutY="268.0" mnemonicParsing="false" onAction="#setBtn_cancel2" prefHeight="39.0" prefWidth="130.0" style="-fx-font-size: 18; -fx-border-color: Black; -fx-background-color: red; -fx-text-fill: #fff700;" text="Huỷ" />
+         <TextField fx:id="tF_ID" layoutX="369.0" layoutY="67.0" opacity="0.3" prefHeight="11.0" prefWidth="298.0" />
+         <TextField fx:id="tF_HovaTen" layoutX="369.0" layoutY="95.0" opacity="0.3" prefHeight="11.0" prefWidth="298.0" />
+         <TextField fx:id="tF_QuocTich" layoutX="369.0" layoutY="179.0" opacity="0.3" prefHeight="11.0" prefWidth="298.0" />
+         <TextField fx:id="tF_QueQuan" layoutX="369.0" layoutY="207.0" opacity="0.3" prefHeight="11.0" prefWidth="298.0" />
+         <TextField fx:id="tF_NoiThuongTru" layoutX="411.0" layoutY="235.0" opacity="0.3" prefHeight="25.0" prefWidth="256.0" />
+         <DatePicker fx:id="datepicker" layoutX="455.0" layoutY="124.0" opacity="0.3" prefHeight="25.0" prefWidth="212.0" />
+         <ComboBox fx:id="combobox" layoutX="456.0" layoutY="152.0" opacity="0.3" prefHeight="25.0" prefWidth="212.0" />
+         <ImageView fx:id="imageView1" fitHeight="253.0" fitWidth="247.0" layoutX="14.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" />
+      </children>
+   </AnchorPane>
+   <AnchorPane fx:id="pane_page_modify" layoutX="425.0" layoutY="17.0" prefHeight="518.0" prefWidth="418.0" style="-fx-background-color: White; -fx-border-color: Black; -fx-border-width: 3;" visible="false">
+      <children>
+         <Line endX="197.0" layoutX="207.0" layoutY="260.0" opacity="0.3" startX="-195.0" />
+         <Button layoutX="219.0" layoutY="97.0" mnemonicParsing="false" onAction="#setbtn_uploadFromFile1" prefHeight="39.0" prefWidth="173.0" style="-fx-text-fill: #007fdb; -fx-background-color: White; -fx-font-size: 18;" text="Tải lên từ máy tính" textFill="#007fdb">
+            <effect>
+               <DropShadow />
+            </effect>
+         </Button>
+         <Button layoutX="254.0" layoutY="160.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="103.0" style="-fx-text-fill: #007fdb; -fx-background-color: White; -fx-font-size: 18;" text="Chụp ảnh" textFill="#007fdb">
+            <effect>
+               <DropShadow />
+            </effect>
+         </Button>
+         <Label layoutX="14.0" layoutY="265.0" style="-fx-font-size: 18;" text="ID:" />
+         <Label layoutX="14.0" layoutY="293.0" style="-fx-font-size: 18;" text="Họ và Tên:" />
+         <Label layoutX="11.0" layoutY="320.0" style="-fx-font-size: 18;" text="Ngày tháng năm sinh:" />
+         <Label layoutX="14.0" layoutY="348.0" style="-fx-font-size: 18;" text="Giới tính:" />
+         <Label layoutX="15.0" layoutY="375.0" style="-fx-font-size: 18;" text="Quốc tịch:" />
+         <Label layoutX="14.0" layoutY="402.0" style="-fx-font-size: 18;" text="Quê quán:" />
+         <Label layoutX="13.0" layoutY="430.0" style="-fx-font-size: 18;" text="Nơi thường trú:" />
+         <Line endX="197.0" layoutX="207.0" layoutY="289.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="207.0" layoutY="318.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="207.0" layoutY="346.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="208.0" layoutY="374.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="208.0" layoutY="402.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="208.0" layoutY="430.0" opacity="0.3" startX="-195.0" />
+         <Button fx:id="btn_modify" layoutX="59.0" layoutY="465.0" mnemonicParsing="false" onAction="#setBtn_modify" prefHeight="39.0" prefWidth="130.0" style="-fx-font-size: 18; -fx-border-color: Black; -fx-background-color: Purple; -fx-text-fill: #fff700;" text="Sửa" />
+         <Line endX="197.0" layoutX="208.0" layoutY="457.0" opacity="0.3" startX="-195.0" />
+         <Button layoutX="241.0" layoutY="465.0" mnemonicParsing="false" onAction="#setBtn_cancel" prefHeight="39.0" prefWidth="130.0" style="-fx-font-size: 18; -fx-border-color: Black; -fx-background-color: red; -fx-text-fill: #fff700;" text="Huỷ" />
+         <TextField fx:id="tF_ID1" layoutX="105.0" layoutY="264.0" opacity="0.3" prefHeight="11.0" prefWidth="298.0" />
+         <TextField fx:id="tF_HovaTen1" layoutX="105.0" layoutY="292.0" opacity="0.3" prefHeight="11.0" prefWidth="298.0" />
+         <TextField fx:id="tF_QuocTich1" layoutX="105.0" layoutY="376.0" opacity="0.3" prefHeight="11.0" prefWidth="298.0" />
+         <TextField fx:id="tF_QueQuan1" layoutX="105.0" layoutY="404.0" opacity="0.3" prefHeight="11.0" prefWidth="298.0" />
+         <TextField fx:id="tF_NoiThuongTru1" layoutX="147.0" layoutY="432.0" opacity="0.3" prefHeight="25.0" prefWidth="256.0" />
+         <DatePicker fx:id="datepicker1" layoutX="191.0" layoutY="321.0" opacity="0.3" prefHeight="25.0" prefWidth="212.0" />
+         <ComboBox fx:id="combobox1" layoutX="192.0" layoutY="349.0" opacity="0.3" prefHeight="25.0" prefWidth="212.0" />
+         <ImageView fx:id="imageView2" fitHeight="226.771" fitWidth="151.181" layoutX="49.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@Image.jpg" />
+            </image>
+         </ImageView>
+      </children>
+   </AnchorPane>
+   <AnchorPane fx:id="pane_page_review" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="770.0" style="-fx-background-color: white; -fx-border-color: Black; -fx-border-width: 3;" visible="false">
+      <children>
+         <TableView fx:id="table_error" layoutX="8.0" layoutY="248.0" prefHeight="278.0" prefWidth="754.0" style="-fx-border-color: Black; -fx-border-width: 3; -fx-background-color: White;">
+            <columns>
+               <TableColumn fx:id="col_TenLoiViPham" prefWidth="173.0" style="-fx-background-color: green; -fx-border-color: black;" text="Tên lỗi vi phạm" />
+               <TableColumn fx:id="col_MucDoPhat" prefWidth="148.0" style="-fx-background-color: green; -fx-border-color: black;" text="Mức độ phạt" />
+               <TableColumn fx:id="col_NgayThangNam" prefWidth="155.0" style="-fx-background-color: green; -fx-border-color: black;" text="Ngày tháng năm" />
+               <TableColumn fx:id="col_GhiChu" prefWidth="318.0" style="-fx-background-color: green; -fx-border-color: black;" text="Ghi chú" />
+            </columns>
+         </TableView>
+         <Line endX="197.0" layoutX="218.0" layoutY="51.0" opacity="0.3" startX="-195.0" />
+         <Label layoutX="28.0" layoutY="53.0" style="-fx-font-size: 18;" text="ID:" />
+         <Label layoutX="28.0" layoutY="81.0" style="-fx-font-size: 18;" text="Họ và Tên:" />
+         <Label layoutX="25.0" layoutY="110.0" style="-fx-font-size: 18;" text="Ngày tháng năm sinh:" />
+         <Label layoutX="23.0" layoutY="138.0" style="-fx-font-size: 18;" text="Giới tính:" />
+         <Label layoutX="26.0" layoutY="165.0" style="-fx-font-size: 18;" text="Quốc tịch:" />
+         <Label layoutX="25.0" layoutY="193.0" style="-fx-font-size: 18;" text="Quê quán:" />
+         <Label layoutX="24.0" layoutY="221.0" style="-fx-font-size: 18;" text="Nơi thường trú:" />
+         <Line endX="197.0" layoutX="218.0" layoutY="80.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="218.0" layoutY="109.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="218.0" layoutY="137.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="219.0" layoutY="165.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="219.0" layoutY="193.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="219.0" layoutY="221.0" opacity="0.3" startX="-195.0" />
+         <Label fx:id="lbl_ID" layoutX="203.0" layoutY="56.0" prefHeight="21.0" prefWidth="214.0" text="Label" />
+         <Label fx:id="lbl_HovaTen" layoutX="203.0" layoutY="84.0" prefHeight="21.0" prefWidth="214.0" text="Label" />
+         <Label fx:id="lbl_NgayThangNamSinh" layoutX="203.0" layoutY="113.0" prefHeight="21.0" prefWidth="214.0" text="Label" />
+         <Label fx:id="lbl_GioiTinh" layoutX="203.0" layoutY="141.0" prefHeight="21.0" prefWidth="214.0" text="Label" />
+         <Label fx:id="lbl_QuocTich" layoutX="203.0" layoutY="168.0" prefHeight="21.0" prefWidth="214.0" text="Label" />
+         <Label fx:id="lbl_QueQuan" layoutX="203.0" layoutY="196.0" prefHeight="21.0" prefWidth="214.0" text="Label" />
+         <Label fx:id="lbl_NoiThuongTru" layoutX="203.0" layoutY="226.0" prefHeight="21.0" prefWidth="214.0" text="Label" />
+         <Button layoutX="672.0" mnemonicParsing="false" onAction="#setBtn_cancel" prefHeight="41.0" prefWidth="98.0" style="-fx-font-size: 18; -fx-border-color: Black; -fx-background-color: red; -fx-text-fill: #fff700;" text="Huỷ" />
+         <ImageView fx:id="imageView" fitHeight="226.771" fitWidth="151.181" layoutX="477.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+      </children>
+   </AnchorPane>
+   <AnchorPane fx:id="pane_page_addError" layoutX="10.0" layoutY="10.0" prefHeight="314.0" prefWidth="418.0" style="-fx-background-color: White; -fx-border-color: Black; -fx-border-width: 3;" visible="false">
+      <children>
+         <Label layoutX="17.0" layoutY="53.0" style="-fx-font-size: 18;" text="ID:" />
+         <Label layoutX="17.0" layoutY="81.0" style="-fx-font-size: 18;" text="Họ và Tên:" />
+         <Label layoutX="13.0" layoutY="164.0" style="-fx-font-size: 18;" text="Ngày tháng năm:" />
+         <Label layoutX="12.0" layoutY="138.0" style="-fx-font-size: 18;" text="Mức độ phạt:" />
+         <Line endX="197.0" layoutX="207.0" layoutY="80.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="207.0" layoutY="109.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="207.0" layoutY="137.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="208.0" layoutY="165.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="208.0" layoutY="193.0" opacity="0.3" startX="-195.0" />
+         <Button fx:id="btn_addError" layoutX="28.0" layoutY="240.0" mnemonicParsing="false" onAction="#setBtn_addError" prefHeight="41.0" prefWidth="165.0" style="-fx-font-size: 18; -fx-border-color: Black; -fx-background-color: green; -fx-text-fill: #ffd000;" text="Thêm lỗi vi phạm" />
+         <Button layoutX="245.0" layoutY="240.0" mnemonicParsing="false" onAction="#setBtn_cancel" prefHeight="39.0" prefWidth="130.0" style="-fx-font-size: 18; -fx-border-color: Black; -fx-background-color: red; -fx-text-fill: #fff700;" text="Huỷ" />
+         <TextField fx:id="tF_ID2" layoutX="157.0" layoutY="50.0" prefHeight="25.0" prefWidth="247.0" />
+         <TextField fx:id="tF_HovaTen2" layoutX="157.0" layoutY="82.0" prefHeight="25.0" prefWidth="247.0" />
+         <TextField fx:id="tF_MucDoPhat2" layoutX="157.0" layoutY="139.0" prefHeight="25.0" prefWidth="247.0" />
+         <DatePicker fx:id="datepicker2" layoutX="156.0" layoutY="165.0" opacity="0.3" prefHeight="25.0" prefWidth="247.0" />
+         <Label layoutX="14.0" layoutY="194.0" style="-fx-font-size: 18;" text="Ghi chú:" />
+         <Line endX="197.0" layoutX="207.0" layoutY="222.0" opacity="0.3" startX="-195.0" />
+         <TextField fx:id="tF_GhiChu2" layoutX="156.0" layoutY="195.0" prefHeight="25.0" prefWidth="247.0" />
+         <Label layoutX="12.0" layoutY="110.0" style="-fx-font-size: 18;" text="Tên lỗi vi phạm:" />
+         <TextField fx:id="tF_TenLoiViPham2" layoutX="157.0" layoutY="111.0" prefHeight="25.0" prefWidth="247.0" />
+         <Line endX="197.0" layoutX="207.0" layoutY="49.0" opacity="0.3" startX="-195.0" />
+         <Label fx:id="lbl_ID_subject" layoutX="164.0" layoutY="14.0" prefHeight="27.0" prefWidth="90.0" style="-fx-font-size: 18;" text="ID_subject" />
+      </children>
+   </AnchorPane>
+</Pane>

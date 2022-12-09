@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Login" />
+        <module name="Library" />
+        <module name="Server" />
+        <module name="Client" />
+        <module name="Client (1)" />
+        <module name="Entities" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Client" target="18" />
+      <module name="Client (1)" target="18" />
+      <module name="Entities" target="18" />
+      <module name="Library" target="18" />
+      <module name="Login" target="18" />
+      <module name="Server" target="18" />
+      <module name="webcam-capture" target="1.5" />
+      <module name="webcam-capture-driver-ffmpeg-cli" target="1.5" />
+      <module name="webcam-capture-driver-fswebcam" target="1.5" />
+      <module name="webcam-capture-driver-gst1" target="1.5" />
+      <module name="webcam-capture-driver-gstreamer" target="1.5" />
+      <module name="webcam-capture-driver-ipcam" target="1.5" />
+      <module name="webcam-capture-driver-jmf" target="1.5" />
+      <module name="webcam-capture-driver-lti-civil" target="1.5" />
+      <module name="webcam-capture-driver-mjpeg" target="1.5" />
+      <module name="webcam-capture-driver-opencv" target="1.5" />
+      <module name="webcam-capture-driver-openimaj" target="1.5" />
+      <module name="webcam-capture-driver-raspberrypi" target="1.5" />
+      <module name="webcam-capture-driver-screencapture" target="1.5" />
+      <module name="webcam-capture-driver-v4l4j" target="1.5" />
+      <module name="webcam-capture-driver-vlcj" target="1.5" />
+      <module name="webcam-capture-drivers" target="1.5" />
+      <module name="webcam-capture-parent" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Client" options="" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,9 @@
+các bước để nhận dạng khuôn mặt:
+    bước 1: face detection(phát hiện khuôn mặt)
+        + Đầu vào là hình ảnh, đầu ra là các hình ảnh với từng ô vuông bao quanh các khuôn mặt có trong ảnh đó.
+        + Nhận diện và tạo một hình chử nhật bao quanh khuôn mặt từ ảnh.
+        + Các thuật toán face detection: viola jones,
+
+    bước 2: face recognition(nhận diện khuôn mặt)
+        + Đầu vào là hình ảnh với từng ô vuông bao quanh các khuôn mặt có trong ảnh(có từ bước 1), đầu ra là thông tin của từng ảnh đó.
+        + Các thuật toán face recogniton:
