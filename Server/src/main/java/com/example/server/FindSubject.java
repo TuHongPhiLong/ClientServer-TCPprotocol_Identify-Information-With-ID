@@ -32,7 +32,8 @@ public class FindSubject {
     }
 
     public void receiveIdSubject() {
-        Thread th = new Thread() {
+        new Thread(new Runnable() {
+            @Override
             public void run() {
                 try {
                     while (true) {
@@ -45,8 +46,7 @@ public class FindSubject {
                     throw new RuntimeException(e);
                 }
             }
-        };
-        th.start();
+        }).start();
     }
     private void sendResultCheckIdSubject() {
         try {

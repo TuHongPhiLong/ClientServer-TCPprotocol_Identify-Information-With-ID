@@ -2,6 +2,7 @@ package com.example.client;
 
 import com.example.entities.account;
 import com.example.entities.error;
+import com.example.entities.subject;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,9 +18,13 @@ import javafx.scene.layout.Pane;
 
 import java.awt.*;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ClientController extends Component implements Initializable {
     @Override
@@ -102,7 +107,6 @@ public class ClientController extends Component implements Initializable {
     ObservableList<error> list_error;
 
 
-
     @FXML
     void setbtn_page_profile(ActionEvent event) {
         if (pane_profile.isVisible()) pane_profile.setVisible(false);
@@ -121,13 +125,13 @@ public class ClientController extends Component implements Initializable {
     private Socket socket;
     private com.example.entities.subject subject;
     private com.example.entities.account account;
-
-    private CheckAccount checkAccount;
-    private FindSubject findSubject;
-
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
+    private boolean kiemTraTaiKhoan;
 
     @FXML
     void setbtn_connectServer(ActionEvent event) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
         try {
             if (tF_UserName.getText().equals("") || tF_PassWord.getText().equals("") || tF_ServerHost.getText().equals("") || tF_Port.getText().equals("")) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -137,17 +141,47 @@ public class ClientController extends Component implements Initializable {
 
                 alert.showAndWait();
             } else {
-//                this.socket = new Socket(tF_ServerHost.getText(), Integer.parseInt(tF_Port.getText()));
-//
-//                int id = Integer.parseInt(String.valueOf(tF_UserName.getText()));
-//                String password = String.valueOf(tF_PassWord.getText());
-//                account = new account(id, password);
-//
-//                checkAccount = new CheckAccount(socket);
-//                findSubject = new FindSubject(socket);
-//
-//                sendAcccount(account);
+                this.socket = new Socket(tF_ServerHost.getText(), Integer.parseInt(tF_Port.getText()));
 
+                int id = Integer.parseInt(String.valueOf(tF_UserName.getText()));
+                String password = String.valueOf(tF_PassWord.getText());
+                account = new account(id, password);
+
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            out = new ObjectOutputStream(socket.getOutputStream());
+                            in = new ObjectInputStream(socket.getInputStream());
+
+                            sendAcccount(account);
+
+                            while (true) {
+                                kiemTraTaiKhoan = in.readBoolean();
+                                System.out.println("Da nhan ket qua cua Server: " + kiemTraTaiKhoan);
+                                if (kiemTraTaiKhoan) {
+                                    System.out.println("Account dung");
+                                    System.out.println("\nDa ket noi!");
+                                    break;
+                                } else {
+                                    System.out.println("Account sai, nhap lai!!!");
+                                    socket.close();
+                                }
+
+                            }
+                            while (true) {
+                                subject = (subject) in.readObject();
+
+                                System.out.println(subject.toString());
+                                System.out.println("Da nhan subject");
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                executorService.execute(thread);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -156,16 +190,20 @@ public class ClientController extends Component implements Initializable {
 
     public void sendIdSubject() {
         try {
-            findSubject.sendIdSubject(Integer.parseInt(tF_idSubject.getText()));
+            out.writeInt(Integer.parseInt(tF_idSubject.getText()));
+            out.flush();
+            System.out.println("Da gui id cua subject");
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    private void sendAcccount(account account){
-        try {
-            checkAccount.sendAccount(account);
 
+    private void sendAcccount(account account) {
+        try {
+            out.writeObject(account);
+            out.flush();
+            System.out.println("Da gui Acount can kiem tra");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -2,8 +2,7 @@ package com.example.client;
 
 import com.example.entities.account;
 import com.example.entities.error;
-import com.example.library.identifyInformationWithPictures_ClientServerSocket;
-import com.example.library.sendAndReceiveSubject_ClientServerSocket;
+import com.example.entities.subject;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +23,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ClientController extends Component implements Initializable {
     @Override
@@ -105,8 +106,6 @@ public class ClientController extends Component implements Initializable {
 
     ObservableList<error> list_error;
 
-    private identifyInformationWithPictures_ClientServerSocket mySocketSendIamge;
-    private sendAndReceiveSubject_ClientServerSocket mySocketSendSubject;
 
     @FXML
     void setbtn_page_profile(ActionEvent event) {
@@ -123,20 +122,17 @@ public class ClientController extends Component implements Initializable {
     }
 
     //Kết nối với Server
-    private Socket socket;// kiểm tra tài khoản
-    private Socket socket1;// gửi và nhận thông tin
-
+    private Socket socket;
     private com.example.entities.subject subject;
     private com.example.entities.account account;
     private ObjectOutputStream out;
     private ObjectInputStream in;
+    private boolean kiemTraTaiKhoan;
 
-    private ObjectOutputStream out1;
-    private ObjectInputStream in1;
-    private volatile boolean kiemTraTaiKhoan = false;
 
     @FXML
     void setbtn_connectServer(ActionEvent event) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
         try {
             if (tF_UserName.getText().equals("") || tF_PassWord.getText().equals("") || tF_ServerHost.getText().equals("") || tF_Port.getText().equals("")) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -147,69 +143,46 @@ public class ClientController extends Component implements Initializable {
                 alert.showAndWait();
             } else {
                 this.socket = new Socket(tF_ServerHost.getText(), Integer.parseInt(tF_Port.getText()));
-                this.socket1 = new Socket(tF_ServerHost.getText(), Integer.parseInt(tF_Port.getText()));
 
                 int id = Integer.parseInt(String.valueOf(tF_UserName.getText()));
                 String password = String.valueOf(tF_PassWord.getText());
                 account = new account(id, password);
 
-                Thread thread = new Thread() {
+                Thread thread = new Thread(new Runnable() {
+                    @Override
                     public void run() {
                         try {
                             out = new ObjectOutputStream(socket.getOutputStream());
                             in = new ObjectInputStream(socket.getInputStream());
 
-                            out1 = new ObjectOutputStream(socket1.getOutputStream());
-                            in1 = new ObjectInputStream(socket1.getInputStream());
+                            sendAcccount(account);
 
-                            // gui account cho Server kiem tra
-                            sendAcccount();
-
-                            Thread th = new Thread() {// Thread de nhan ket qua kiem tra acoount dung hay khong tu Server
-                                public void run() {
-                                    while (true) {
-                                        try {
-                                            kiemTraTaiKhoan = in.readBoolean();
-                                            System.out.println("Da nhan ket qua cua Server: " + kiemTraTaiKhoan);
-
-                                            if (kiemTraTaiKhoan == true) {
-                                                System.out.println("Account dung");
-                                                System.out.println("\nDa ket noi!");
-                                                out.close();
-                                                in.close();
-                                                socket.close();
-                                                break;
-                                            } else {
-                                                System.out.println("Account sai, nhap lai!!!");
-                                            }
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
+                            while (true) {
+                                kiemTraTaiKhoan = in.readBoolean();
+                                System.out.println("Da nhan ket qua cua Server: " + kiemTraTaiKhoan);
+                                if (kiemTraTaiKhoan) {
+                                    System.out.println("Account dung");
+                                    System.out.println("\nDa ket noi!");
+                                    break;
+                                } else {
+                                    System.out.println("Account sai, nhap lai!!!");
+                                    socket.close();
                                 }
-                            };
-                            th.start();
-                            Thread th1 = new Thread() {
-                                public void run() {
-                                    while (true) {
-                                        try {
-                                            subject = (com.example.entities.subject) in1.readObject();
 
-                                            System.out.println(subject.toString());
-                                            System.out.println("Da nhan subject");
-                                        } catch (IOException | ClassNotFoundException e) {
-                                            throw new RuntimeException(e);
-                                        }
-                                    }
-                                }
-                            };
-                            th1.start();
-                        } catch (Exception e1) {
-                            e1.printStackTrace();
+                            }
+                            while (true) {
+                                subject = (subject) in.readObject();
+
+                                System.out.println(subject.toString());
+                                System.out.println("Da nhan subject");
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
-                };
-                thread.start();
+                });
+                executorService.execute(thread);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -218,15 +191,16 @@ public class ClientController extends Component implements Initializable {
 
     public void sendIdSubject() {
         try {
-            out1.writeInt(Integer.parseInt(tF_idSubject.getText()));
-            out1.flush();
+            out.writeInt(Integer.parseInt(tF_idSubject.getText()));
+            out.flush();
             System.out.println("Da gui id cua subject");
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    private void sendAcccount(){
+
+    private void sendAcccount(account account) {
         try {
             out.writeObject(account);
             out.flush();

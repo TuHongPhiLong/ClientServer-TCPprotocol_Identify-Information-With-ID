@@ -44,6 +44,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.concurrent.*;
 
 import static java.lang.Integer.parseInt;
 
@@ -222,13 +223,15 @@ public class ServerController extends Component implements Initializable {
 
     //Khởi tạo server và cụm chức năng gửi và nhận
     private TextField tF_idSubject;
-    private Socket socket;// kiểm tra tài khoản
-    private Socket socket1;// gửi và nhận thông tin
+    private static Socket socket;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
+    private ObjectOutputStream out1;
+    private ObjectInputStream in1;
     private int idSubject;
     private account account;
-    private CheckAccount checkAccount;
-    private FindSubject findSubject;
-    static int clientNumber = 1;
+    private int clientNumber = 0;
+
     private static final ArrayList<Socket> listSocket = new ArrayList<>();
 
     //https://topdev.vn/blog/xay-dung-ung-dung-client-server-voi-socket-trong-java/
@@ -236,25 +239,137 @@ public class ServerController extends Component implements Initializable {
     private void setBtn_initServer() throws IOException {
         ServerSocket serverSocket = new ServerSocket(parseInt(tF_Port.getText()));
         System.out.println("Da khoi tao Server");
+        System.out.println("Dang cho Client");
 
-        while (true) {
-            try {
-                Socket socket = serverSocket.accept();
-                Socket socket1 = serverSocket.accept();
-                listSocket.add(socket);
 
-                System.out.println("Khỏi động luồng cho Client: " + clientNumber + socket);
-                clientNumber++;
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(
+                10,//corePoolSize
+                100,//maximumPoolSize
+                10,//thread timeout
+                TimeUnit.SECONDS,
+                new ArrayBlockingQueue<>(8) // queueCapacity
+        );
 
-                new CheckAccount(socket);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        socket = serverSocket.accept();
+                        ServerThread serverThread = new ServerThread(socket, clientNumber++);
+                        executor.execute(serverThread);
 
-                new FindSubject(socket1);
+//                            Thread th = new Thread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    try {
+//                                        while(true) {
+//                                            com.example.entities.account account1 = (com.example.entities.account) in.readObject();
+//                                            out.reset(); in.reset();
+//                                            if (account1 != null) {
+//                                                account = account1;
+//                                            }
+//                                            System.out.println("Da nhan account" + account);
+//
+//                                            if (resultCompareAccount()) {
+//                                                out.reset();
+//                                                in.reset();
+//                                                out.writeBoolean(resultCompareAccount());
+//                                                out.flush();
+//                                                System.out.println("\n Client da ket noi");
+//                                                while (true) {
+//                                                    out.reset();
+//                                                    in.reset();
+//                                                    idSubject = (int) in.readObject();
+//
+//                                                    System.out.println("idSubject Client gui: " + idSubject);
+//                                                    sendResultCheckIdSubject(socket);
+//                                                }
+//                                            } else {
+//                                                out.writeBoolean(resultCompareAccount());
+//                                                out.flush();
+//                                                System.out.println("Account cua client sai!!!");
+//                                            }
+//                                        }
+//                                    } catch (Exception e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                }
+//                            }); executor.execute(th);
+//                    Thread th1 = new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            try {
+//                                ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+//                                while (true) {
+//                                    idSubject = in.readInt();
+//
+//                                    System.out.println("idSubject Client gui: " + idSubject);
+//                                    sendResultCheckIdSubject();
+//                                }
+//                            } catch (IOException e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                        }
+//                    }); executor.execute(th1);
 
-            } catch (Exception e) {
-                e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
             }
+        });
+        thread.start();
 
+    }
+
+    private Boolean resultCompareAccount() throws SQLException {
+        conn = ConnectDB.ConnectDb();
+        com.example.entities.account account1 = new account();
+
+        String value1 = String.valueOf(account.getId());//trong data là id
+
+        PreparedStatement pst = conn.prepareStatement("select * from account where ID= '" + value1 + "'");
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            account1 = new account(parseInt(rs.getString("ID")), rs.getString("Password"));
         }
+        // kiem tra id và password Client gửi
+        if (account.getId() == account1.getId() && account.getPassword().equals(account1.getPassword())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void sendResultCheckIdSubject(Socket socket) {
+        try {
+            out.writeObject(resultCompareIdSubject());
+            out.flush();
+
+            System.out.println(resultCompareIdSubject());
+            System.out.println("Da gui subject");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private com.example.entities.subject resultCompareIdSubject() {
+        conn = ConnectDB.ConnectDb();
+        subject subject = new subject();
+        try {
+            String value1 = String.valueOf(idSubject);
+            String sql = "select * from subject where ID_subject= '" + value1 + "' ";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                subject = new subject(parseInt(rs.getString("ID_subject")), rs.getString("HovaTen"), rs.getDate("NgayThangNamSinh"), rs.getString("GioiTinh"), rs.getString("QuocTich"), rs.getString("QueQuan"), rs.getString("NoiThuongTru"), rs.getString("CacLoiViPham"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return subject;
     }
 
     @FXML
