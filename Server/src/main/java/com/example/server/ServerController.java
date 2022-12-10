@@ -259,64 +259,9 @@ public class ServerController extends Component implements Initializable {
                         ServerThread serverThread = new ServerThread(socket, clientNumber++);
                         executor.execute(serverThread);
 
-//                            Thread th = new Thread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    try {
-//                                        while(true) {
-//                                            com.example.entities.account account1 = (com.example.entities.account) in.readObject();
-//                                            out.reset(); in.reset();
-//                                            if (account1 != null) {
-//                                                account = account1;
-//                                            }
-//                                            System.out.println("Da nhan account" + account);
-//
-//                                            if (resultCompareAccount()) {
-//                                                out.reset();
-//                                                in.reset();
-//                                                out.writeBoolean(resultCompareAccount());
-//                                                out.flush();
-//                                                System.out.println("\n Client da ket noi");
-//                                                while (true) {
-//                                                    out.reset();
-//                                                    in.reset();
-//                                                    idSubject = (int) in.readObject();
-//
-//                                                    System.out.println("idSubject Client gui: " + idSubject);
-//                                                    sendResultCheckIdSubject(socket);
-//                                                }
-//                                            } else {
-//                                                out.writeBoolean(resultCompareAccount());
-//                                                out.flush();
-//                                                System.out.println("Account cua client sai!!!");
-//                                            }
-//                                        }
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                }
-//                            }); executor.execute(th);
-//                    Thread th1 = new Thread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            try {
-//                                ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-//                                while (true) {
-//                                    idSubject = in.readInt();
-//
-//                                    System.out.println("idSubject Client gui: " + idSubject);
-//                                    sendResultCheckIdSubject();
-//                                }
-//                            } catch (IOException e) {
-//                                throw new RuntimeException(e);
-//                            }
-//                        }
-//                    }); executor.execute(th1);
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
             }
         });
