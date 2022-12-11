@@ -1,6 +1,7 @@
 package com.example.server;
 
 import com.example.entities.account;
+import com.example.entities.error;
 import com.example.entities.subject;
 
 import java.io.IOException;
@@ -11,14 +12,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
 public class ServerThread implements Runnable{
     private final Socket socket;
-    private final int clientNumber;
+    private int clientNumber;
     private account account;
     private subject subject;
+    private error error;
     private Integer idSubject;
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -55,6 +61,7 @@ public class ServerThread implements Runnable{
                     out.writeBoolean(resultCompareAccount());
                     out.flush();
                     System.out.println("Account cua client sai!!!");
+                    socket.close();
                 }
             }
             while (true) {
@@ -62,6 +69,16 @@ public class ServerThread implements Runnable{
 
                 System.out.println("idSubject Client gui: " + idSubject);
                 sendResultCheckIdSubject();
+                break;
+            }
+            while (true){
+                error = (error) in.readObject();
+                AddError();
+                //gửi danh sách lỗi của subject
+                out.writeObject(resultErrorCompareIdSubject());
+
+                System.out.println("Them loi vi pham thanh cong");
+                System.out.println(error);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -84,15 +101,18 @@ public class ServerThread implements Runnable{
     }
     private void sendResultCheckIdSubject() {
         try {
-            out.writeObject(resultCompareIdSubject());
+            out.writeObject(resultSubjectCompareIdSubject());
+            out.writeObject(resultErrorCompareIdSubject()) ;
             out.flush();
-            System.out.println(resultCompareIdSubject());
-            System.out.println("Da gui subject");
+
+            System.out.println(resultSubjectCompareIdSubject());
+            System.out.println(resultErrorCompareIdSubject());
+            System.out.println("Da gui subject va error cua subject");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    private subject resultCompareIdSubject() {
+    private subject resultSubjectCompareIdSubject() {
         conn = ConnectDB.ConnectDb();
         subject subject = new subject();
         try {
@@ -101,12 +121,45 @@ public class ServerThread implements Runnable{
             PreparedStatement pst = conn.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                subject = new subject(parseInt(rs.getString("ID_subject")), rs.getString("HovaTen"), rs.getDate("NgayThangNamSinh"), rs.getString("GioiTinh"), rs.getString("QuocTich"), rs.getString("QueQuan"), rs.getString("NoiThuongTru"), rs.getString("CacLoiViPham"));
+                subject = new subject(parseInt(rs.getString("ID_subject")), rs.getString("HovaTen"), rs.getDate("NgayThangNamSinh"), rs.getString("GioiTinh"), rs.getString("QuocTich"), rs.getString("QueQuan"), rs.getString("NoiThuongTru"), rs.getBytes("URL") );
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return subject;
+    }
+    private List<error> resultErrorCompareIdSubject() {
+        conn = ConnectDB.ConnectDb();
+        List<error> list = new ArrayList<>();
+        try {
+            String value1 = String.valueOf(idSubject);
+            String sql = "select * from error where ID_subject= '" + value1 + "' ";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                list.add(new error(rs.getString("TenLoiViPham"), rs.getString("MucDoPhat"), rs.getDate("NgayThangNam"), rs.getString("GhiChu")));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+    private void AddError(){
+        conn = ConnectDB.ConnectDb();
+        try {
+            DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            String value3 = error.getTenLoiViPham();
+            String value4 = error.getMucDoPhat();
+            String value5 = dateformat.format(error.getNgayThangNam());
+            String value6 = error.getGhiChu();
+            String value7 = idSubject.toString();
+            String sql = "insert into error(TenLoiViPham, MucDoPhat, NgayThangNam, GhiChu, ID_subject) values( '" + value3 + "', '" + value4 + "', '" + value5 + "', '" + value6 + "', '" + value7 + "')";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.execute();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendAccount(account account) throws IOException {
@@ -114,7 +167,6 @@ public class ServerThread implements Runnable{
         out.flush();
         System.out.println("Da gui account cho Server kiem tra");
     }
-
     public void receiveBoolean() {
         Thread th = new Thread() {
             public void run() {

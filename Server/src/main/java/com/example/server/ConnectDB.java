@@ -30,7 +30,7 @@ public class ConnectDB {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                list.add(new subject(Integer.parseInt(rs.getString("ID_subject")), rs.getString("HovaTen"), rs.getDate("NgayThangNamSinh"), rs.getString("GioiTinh"), rs.getString("QuocTich"), rs.getString("QueQuan"), rs.getString("NoiThuongTru"), rs.getString("CacLoiViPham")));
+                list.add(new subject(Integer.parseInt(rs.getString("ID_subject")), rs.getString("HovaTen"), rs.getDate("NgayThangNamSinh"), rs.getString("GioiTinh"), rs.getString("QuocTich"), rs.getString("QueQuan"), rs.getString("NoiThuongTru")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

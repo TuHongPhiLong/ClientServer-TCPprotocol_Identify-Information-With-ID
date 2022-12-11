@@ -169,8 +169,6 @@ public class ServerController extends Component implements Initializable {
     @FXML
     public TableColumn<subject, String> col_NoiThuongTru;
     @FXML
-    public TableColumn<subject, String> col_CacLoiViPham;
-    @FXML
     private TableColumn<error, String> col_TenLoiViPham;
     @FXML
     private TableColumn<error, String> col_MucDoPhat;
@@ -241,7 +239,6 @@ public class ServerController extends Component implements Initializable {
         System.out.println("Da khoi tao Server");
         System.out.println("Dang cho Client");
 
-
         ThreadPoolExecutor executor = new ThreadPoolExecutor(
                 10,//corePoolSize
                 100,//maximumPoolSize
@@ -249,7 +246,7 @@ public class ServerController extends Component implements Initializable {
                 TimeUnit.SECONDS,
                 new ArrayBlockingQueue<>(8) // queueCapacity
         );
-
+        //cach 2:
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -269,37 +266,6 @@ public class ServerController extends Component implements Initializable {
 
     }
 
-    private Boolean resultCompareAccount() throws SQLException {
-        conn = ConnectDB.ConnectDb();
-        com.example.entities.account account1 = new account();
-
-        String value1 = String.valueOf(account.getId());//trong data là id
-
-        PreparedStatement pst = conn.prepareStatement("select * from account where ID= '" + value1 + "'");
-        ResultSet rs = pst.executeQuery();
-        while (rs.next()) {
-            account1 = new account(parseInt(rs.getString("ID")), rs.getString("Password"));
-        }
-        // kiem tra id và password Client gửi
-        if (account.getId() == account1.getId() && account.getPassword().equals(account1.getPassword())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private void sendResultCheckIdSubject(Socket socket) {
-        try {
-            out.writeObject(resultCompareIdSubject());
-            out.flush();
-
-            System.out.println(resultCompareIdSubject());
-            System.out.println("Da gui subject");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private com.example.entities.subject resultCompareIdSubject() {
         conn = ConnectDB.ConnectDb();
         subject subject = new subject();
@@ -309,7 +275,7 @@ public class ServerController extends Component implements Initializable {
             PreparedStatement pst = conn.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                subject = new subject(parseInt(rs.getString("ID_subject")), rs.getString("HovaTen"), rs.getDate("NgayThangNamSinh"), rs.getString("GioiTinh"), rs.getString("QuocTich"), rs.getString("QueQuan"), rs.getString("NoiThuongTru"), rs.getString("CacLoiViPham"));
+                subject = new subject(parseInt(rs.getString("ID_subject")), rs.getString("HovaTen"), rs.getDate("NgayThangNamSinh"), rs.getString("GioiTinh"), rs.getString("QuocTich"), rs.getString("QueQuan"), rs.getString("NoiThuongTru"), rs.getBytes("URL"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -330,14 +296,12 @@ public class ServerController extends Component implements Initializable {
     void setbtn_page_add() {
         pane_page_add.setVisible(true);
     }
-
     String filename;
     String filename1;
-
     @FXML
     void setBtn_add() {
         conn = ConnectDB.ConnectDb();
-        String sql = "insert into subject (ID_subject, HovaTen, NgayThangNamSinh, GioiTinh, QuocTich, QueQuan, NoiThuongTru, CacLoiViPham, URL) values(?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into subject (ID_subject, HovaTen, NgayThangNamSinh, GioiTinh, QuocTich, QueQuan, NoiThuongTru, URL) values(?,?,?,?,?,?,?,?)";
         try {
             //filename là String lấy từ hàm setbtn_uploadFromFile() nếu upload từ máy tính còn từ camera thì từ openCamera()
             File imageFile = new File(filename);
@@ -352,8 +316,7 @@ public class ServerController extends Component implements Initializable {
             pst.setString(5, tF_QuocTich.getText());
             pst.setString(6, tF_QueQuan.getText());
             pst.setString(7, tF_NoiThuongTru.getText());
-            pst.setString(8, "");
-            pst.setBinaryStream(9, fileInput, imageFile.length());
+            pst.setBinaryStream(8, fileInput, imageFile.length());
             pst.execute();
             JOptionPane.showMessageDialog(null, "Thêm thành công!");
             setBtn_cancel2();
@@ -414,7 +377,7 @@ public class ServerController extends Component implements Initializable {
     void setBtn_modify(ActionEvent event) {
         conn = ConnectDB.ConnectDb();
         String value1 = tF_ID1.getText();
-        String sql = "update subject set HovaTen = ?, NgayThangNamSinh = ?, GioiTinh = ?, QuocTich = ?, QueQuan = ?, NoiThuongTru = ?, CacLoiViPham = ?, URL = ? where ID_subject = '" + value1 + "' ";
+        String sql = "update subject set HovaTen = ?, NgayThangNamSinh = ?, GioiTinh = ?, QuocTich = ?, QueQuan = ?, NoiThuongTru = ?, URL = ? where ID_subject = '" + value1 + "' ";
         try {
             //filename là String lấy từ hàm setbtn_uploadFromFile
             File imageFile = new File(filename1);
@@ -428,8 +391,7 @@ public class ServerController extends Component implements Initializable {
             pst.setString(4, tF_QuocTich1.getText());
             pst.setString(5, tF_QueQuan1.getText());
             pst.setString(6, tF_NoiThuongTru1.getText());
-            pst.setString(7, "");
-            pst.setBinaryStream(8, fileInput, imageFile.length());
+            pst.setBinaryStream(7, fileInput, imageFile.length());
             pst.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Sửa thành công!");
@@ -494,7 +456,6 @@ public class ServerController extends Component implements Initializable {
         col_QuocTich.setCellValueFactory(new PropertyValueFactory<subject, String>("QuocTich"));
         col_QueQuan.setCellValueFactory(new PropertyValueFactory<subject, String>("QueQuan"));
         col_NoiThuongTru.setCellValueFactory(new PropertyValueFactory<subject, String>("NoiThuongTru"));
-        col_CacLoiViPham.setCellValueFactory(new PropertyValueFactory<subject, String>("CacLoiViPham"));
 
         //đưa dữ liệu vào chuổi list_search.
         list_search = ConnectDB.getDatasubject();
@@ -535,7 +496,6 @@ public class ServerController extends Component implements Initializable {
 //        col_QuocTich.setCellValueFactory(new PropertyValueFactory<subject, String>("QuocTich"));
 //        col_QueQuan.setCellValueFactory(new PropertyValueFactory<subject, String>("QueQuan"));
 //        col_NoiThuongTru.setCellValueFactory(new PropertyValueFactory<subject, String>("NoiThuongTru"));
-//        col_CacLoiViPham.setCellValueFactory(new PropertyValueFactory<subject, String>("CacLoiViPham"));
 //        list_search = ConnectDB.getDatasubject();
 //
 //        conn = ConnectDB.ConnectDb();
@@ -547,7 +507,7 @@ public class ServerController extends Component implements Initializable {
 //                ResultSet rs = pst.executeQuery();
 //                ObservableList<subject> list_After_search = FXCollections.observableArrayList();
 //                while (rs.next()) {
-//                    list_After_search.add(new subject(Integer.parseInt(rs.getString("ID_subject")), rs.getString("HovaTen"), rs.getDate("NgayThangNamSinh"), rs.getString("GioiTinh"), rs.getString("QuocTich"), rs.getString("QueQuan"), rs.getString("NoiThuongTru"), rs.getString("CacLoiViPham")));
+//                    list_After_search.add(new subject(Integer.parseInt(rs.getString("ID_subject")), rs.getString("HovaTen"), rs.getDate("NgayThangNamSinh"), rs.getString("GioiTinh"), rs.getString("QuocTich"), rs.getString("QueQuan"), rs.getString("NoiThuongTru")));
 //                }
 //                table_subject.setItems(list_After_search);
 //                conn.close();
@@ -629,7 +589,6 @@ public class ServerController extends Component implements Initializable {
         col_QuocTich.setCellValueFactory(new PropertyValueFactory<subject, String>("QuocTich"));
         col_QueQuan.setCellValueFactory(new PropertyValueFactory<subject, String>("QueQuan"));
         col_NoiThuongTru.setCellValueFactory(new PropertyValueFactory<subject, String>("NoiThuongTru"));
-        col_CacLoiViPham.setCellValueFactory(new PropertyValueFactory<subject, String>("CacLoiViPham"));
 
         list_subject = ConnectDB.getDatasubject();
         table_subject.setItems(list_subject);

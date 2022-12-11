@@ -4,12 +4,10 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/Server/pom.xml" />
-        <option value="$PROJECT_DIR$/Login/pom.xml" />
         <option value="$PROJECT_DIR$/Client/pom.xml" />
         <option value="$PROJECT_DIR$/Library/pom.xml" />
         <option value="$PROJECT_DIR$/Entities/pom.xml" />
         <option value="$PROJECT_DIR$/../../DoAnTrenMang/webcam-capture-master/pom.xml" />
-        <option value="$PROJECT_DIR$/Client1/pom.xml" />
       </list>
     </option>
   </component>

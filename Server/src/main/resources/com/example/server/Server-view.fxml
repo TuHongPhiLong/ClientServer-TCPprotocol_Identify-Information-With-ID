@@ -23,17 +23,16 @@
 <?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="850.0" style="-fx-border-color: Black; -fx-border-width: 3;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.server.ServerController">
-   <Pane fx:id="pane_edit" layoutX="94.0" layoutY="4.0" prefHeight="543.0" prefWidth="748.0" style="-fx-background-color: white;" visible="false">
+   <Pane fx:id="pane_edit" layoutX="94.0" layoutY="4.0" prefHeight="543.0" prefWidth="748.0" style="-fx-background-color: white;">
       <TableView fx:id="table_subject" layoutX="3.0" layoutY="4.0" onMouseClicked="#getSelected" prefHeight="378.0" prefWidth="748.0" style="-fx-border-color: Black; -fx-background-color: White;">
          <columns>
             <TableColumn fx:id="col_ID" prefWidth="25.0" style="-fx-background-color: Green; -fx-border-color: black;" text="ID" />
-            <TableColumn fx:id="col_HovaTen" prefWidth="91.0" style="-fx-background-color: green; -fx-border-color: black;" text="Họ và Tên" />
-            <TableColumn fx:id="col_NgayThangNamSinh" prefWidth="130.0" style="-fx-background-color: green; -fx-border-color: black;" text="Ngày Tháng Năm Sinh" />
-            <TableColumn fx:id="col_GioiTinh" prefWidth="59.0" style="-fx-background-color: green; -fx-border-color: black;" text="Giới tính" />
-            <TableColumn fx:id="col_QuocTich" prefWidth="64.0" style="-fx-background-color: green; -fx-border-color: black;" text="Quốc tịch" />
-            <TableColumn fx:id="col_QueQuan" prefWidth="69.0" style="-fx-background-color: green; -fx-border-color: black;" text="Quê Quán" />
-            <TableColumn fx:id="col_NoiThuongTru" prefWidth="138.0" style="-fx-background-color: green; -fx-border-color: black;" text="Nơi Thường trú" />
-            <TableColumn fx:id="col_CacLoiViPham" prefWidth="173.0" style="-fx-background-color: green; -fx-border-color: black;" text="Các lỗi vi phạm" />
+            <TableColumn fx:id="col_HovaTen" prefWidth="129.0" style="-fx-background-color: green; -fx-border-color: black;" text="Họ và Tên" />
+            <TableColumn fx:id="col_NgayThangNamSinh" prefWidth="153.0" style="-fx-background-color: green; -fx-border-color: black;" text="Ngày Tháng Năm Sinh" />
+            <TableColumn fx:id="col_GioiTinh" prefWidth="87.0" style="-fx-background-color: green; -fx-border-color: black;" text="Giới tính" />
+            <TableColumn fx:id="col_QuocTich" prefWidth="107.0" style="-fx-background-color: green; -fx-border-color: black;" text="Quốc tịch" />
+            <TableColumn fx:id="col_QueQuan" prefWidth="92.0" style="-fx-background-color: green; -fx-border-color: black;" text="Quê Quán" />
+            <TableColumn fx:id="col_NoiThuongTru" prefWidth="153.0" style="-fx-background-color: green; -fx-border-color: black;" text="Nơi Thường trú" />
          </columns>
       </TableView>
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="464.0" mnemonicParsing="false" onAction="#setbtn_page_add" prefHeight="44.0" prefWidth="118.0" style="-fx-background-color: Green; -fx-border-color: Black; -fx-font-size: 18; -fx-text-fill: #ffd000;" text="Thêm" textFill="#e8c30c">
@@ -63,7 +62,7 @@
          </font>
       </Button>
    </Pane>
-   <Pane fx:id="pane_initServer" layoutX="91.0" layoutY="4.0" prefHeight="543.0" prefWidth="754.0" style="-fx-background-color: White;">
+   <Pane fx:id="pane_initServer" layoutX="91.0" layoutY="4.0" prefHeight="543.0" prefWidth="754.0" style="-fx-background-color: White;" visible="false">
       <HBox layoutX="123.0" layoutY="214.0" prefHeight="62.0" prefWidth="238.0" style="-fx-border-color: red;">
          <Label prefHeight="63.0" prefWidth="71.0" style="-fx-border-color: red;" text="Port:">
             <font>

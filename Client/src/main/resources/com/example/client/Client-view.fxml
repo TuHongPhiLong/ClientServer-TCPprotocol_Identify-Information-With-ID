@@ -161,30 +161,24 @@
          </Button>
       </children>
    </AnchorPane>
-   <AnchorPane fx:id="pane_page_addError" layoutX="20.0" layoutY="20.0" prefHeight="314.0" prefWidth="418.0" style="-fx-background-color: White; -fx-border-color: Black; -fx-border-width: 3;" visible="false">
+   <AnchorPane fx:id="pane_page_addError" layoutX="20.0" layoutY="20.0" prefHeight="278.0" prefWidth="418.0" style="-fx-background-color: White; -fx-border-color: Black; -fx-border-width: 3;" visible="false">
       <children>
-         <Label layoutX="17.0" layoutY="53.0" style="-fx-font-size: 18;" text="ID:" />
-         <Label layoutX="17.0" layoutY="81.0" style="-fx-font-size: 18;" text="Họ và Tên:" />
-         <Label layoutX="13.0" layoutY="164.0" style="-fx-font-size: 18;" text="Ngày tháng năm:" />
-         <Label layoutX="12.0" layoutY="138.0" style="-fx-font-size: 18;" text="Mức độ phạt:" />
+         <Label layoutX="17.0" layoutY="81.0" style="-fx-font-size: 18;" text="Tên lỗi vi phạm:" />
+         <Label layoutX="17.0" layoutY="135.0" style="-fx-font-size: 18;" text="Ngày tháng năm:" />
+         <Label layoutX="17.0" layoutY="109.0" style="-fx-font-size: 18;" text="Mức độ phạt:" />
          <Line endX="197.0" layoutX="207.0" layoutY="80.0" opacity="0.3" startX="-195.0" />
-         <Line endX="197.0" layoutX="207.0" layoutY="109.0" opacity="0.3" startX="-195.0" />
-         <Line endX="197.0" layoutX="207.0" layoutY="137.0" opacity="0.3" startX="-195.0" />
-         <Line endX="197.0" layoutX="208.0" layoutY="165.0" opacity="0.3" startX="-195.0" />
-         <Line endX="197.0" layoutX="208.0" layoutY="193.0" opacity="0.3" startX="-195.0" />
-         <Button fx:id="btn_addError" layoutX="28.0" layoutY="240.0" mnemonicParsing="false" onAction="#setBtn_addError" prefHeight="41.0" prefWidth="165.0" style="-fx-font-size: 18; -fx-border-color: Black; -fx-background-color: green; -fx-text-fill: #ffd000;" text="Thêm lỗi vi phạm" />
-         <Button layoutX="245.0" layoutY="240.0" mnemonicParsing="false" onAction="#setBtn_cancel1" prefHeight="39.0" prefWidth="130.0" style="-fx-font-size: 18; -fx-border-color: Black; -fx-background-color: red; -fx-text-fill: #fff700;" text="Huỷ" />
-         <TextField fx:id="tF_ID" layoutX="157.0" layoutY="50.0" prefHeight="25.0" prefWidth="247.0" />
-         <TextField fx:id="tF_HovaTen" layoutX="157.0" layoutY="82.0" prefHeight="25.0" prefWidth="247.0" />
-         <TextField fx:id="tF_MucDoPhat" layoutX="157.0" layoutY="139.0" prefHeight="25.0" prefWidth="247.0" />
-         <DatePicker fx:id="datepicker" layoutX="156.0" layoutY="165.0" opacity="0.3" prefHeight="25.0" prefWidth="247.0" />
-         <Label layoutX="14.0" layoutY="194.0" style="-fx-font-size: 18;" text="Ghi chú:" />
-         <Line endX="197.0" layoutX="207.0" layoutY="222.0" opacity="0.3" startX="-195.0" />
-         <TextField fx:id="tF_GhiChu" layoutX="156.0" layoutY="195.0" prefHeight="25.0" prefWidth="247.0" />
-         <Label layoutX="12.0" layoutY="110.0" style="-fx-font-size: 18;" text="Tên lỗi vi phạm:" />
-         <TextField fx:id="tF_TenLoiViPham" layoutX="157.0" layoutY="111.0" prefHeight="25.0" prefWidth="247.0" />
-         <Line endX="197.0" layoutX="207.0" layoutY="49.0" opacity="0.3" startX="-195.0" />
-         <Label fx:id="lbl_ID_subject" layoutX="164.0" layoutY="14.0" prefHeight="27.0" prefWidth="90.0" style="-fx-font-size: 18;" text="ID_subject" />
+         <Line endX="197.0" layoutX="207.0" layoutY="108.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="208.0" layoutY="136.0" opacity="0.3" startX="-195.0" />
+         <Line endX="197.0" layoutX="208.0" layoutY="164.0" opacity="0.3" startX="-195.0" />
+         <Button fx:id="btn_addError" layoutX="28.0" layoutY="211.0" mnemonicParsing="false" onAction="#setBtn_addError" prefHeight="41.0" prefWidth="165.0" style="-fx-font-size: 18; -fx-border-color: Black; -fx-background-color: green; -fx-text-fill: #ffd000;" text="Thêm lỗi vi phạm" />
+         <Button layoutX="245.0" layoutY="211.0" mnemonicParsing="false" onAction="#setBtn_cancel1" prefHeight="39.0" prefWidth="130.0" style="-fx-font-size: 18; -fx-border-color: Black; -fx-background-color: red; -fx-text-fill: #fff700;" text="Huỷ" />
+         <TextField fx:id="tF_MucDoPhat" layoutX="157.0" layoutY="110.0" prefHeight="25.0" prefWidth="247.0" />
+         <DatePicker fx:id="datepicker" layoutX="156.0" layoutY="136.0" opacity="0.3" prefHeight="25.0" prefWidth="247.0" />
+         <Label layoutX="17.0" layoutY="165.0" style="-fx-font-size: 18;" text="Ghi chú:" />
+         <Line endX="197.0" layoutX="207.0" layoutY="193.0" opacity="0.3" startX="-195.0" />
+         <TextField fx:id="tF_GhiChu" layoutX="156.0" layoutY="166.0" prefHeight="25.0" prefWidth="247.0" />
+         <TextField fx:id="tF_TenLoiViPham" layoutX="157.0" layoutY="82.0" prefHeight="25.0" prefWidth="247.0" />
+         <Label fx:id="lbl_ID_subject" layoutX="163.0" layoutY="31.0" prefHeight="27.0" prefWidth="90.0" style="-fx-font-size: 18;" text="ID_subject" />
       </children>
    </AnchorPane>
 </Pane>

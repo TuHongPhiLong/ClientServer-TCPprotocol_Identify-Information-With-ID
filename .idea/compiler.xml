@@ -6,17 +6,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Login" />
         <module name="Library" />
         <module name="Server" />
         <module name="Client" />
-        <module name="Client (1)" />
         <module name="Entities" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Client" target="18" />
-      <module name="Client (1)" target="18" />
+      <module name="Client (1)" target="1.5" />
       <module name="Entities" target="18" />
       <module name="Library" target="18" />
       <module name="Login" target="18" />

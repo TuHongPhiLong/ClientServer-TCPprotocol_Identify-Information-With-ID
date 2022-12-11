@@ -10,12 +10,14 @@ Version 1.0(End 7 tháng 10): Đả hoàn thành các chức năng:
 
 * Mục tiêu Version tới:
     + Xử lý Client gửi id của subject, Server tự động trả về thông tin của subject.
+    + Thêm chức năng nhận diện khuôn mặt
     + Thiết kế lại giao diện.
     + Thêm chức năng đăng nhập cho Client.
+    + Thêm chức năng thêm lỗi vi phạm cho Client.
 
 Version 1.1(Update ngày 28 tháng 11): Hoàn thiện chức năng gửi và nhận của Server và Client.
-- Server: Đã xử lý Client gửi id của subject, Server tự động trả về thông tin của subject.
-- Client: Đã xử lý Client gửi id của subject, Server tự động trả về thông tin của subject.
+- Server: Đã xử lý Client gửi id của subject, Server tự động trả về thông tin của subject(bao gồm cả hình và error của subject).
+- Client: Đã xử lý Client gửi id của subject, Server tự động trả về thông tin của subject(bao gồm cả hình và error của subject).
 
 * Mục tiêu Version tới: thêm chức năng đăng nhập cho Client khi kết nối tới Server.
 
@@ -28,6 +30,11 @@ Version 1.2(Update ngày 7 tháng 12): thêm chức năng đăng nhập cho Clie
 Version 1.3(): Hoàn thiện giao diện.
 -Server:
 -Client:
+
+Version 1.5(): thêm chức năng thêm lỗi vi phạm.
+ghi chú: Server sau khi gửi idSubject thì sẽ ngừng vòng lập nhận subject để mở vòng lặp nhận error nên không thể nhận idSubject nửa mà chỉ nhận yêu cầu thêm lỗi từ Client
+- Server:
+- Client:
 
 Version 2.0(): thêm chức năng nhận diện khuôn mặt
 -Server:

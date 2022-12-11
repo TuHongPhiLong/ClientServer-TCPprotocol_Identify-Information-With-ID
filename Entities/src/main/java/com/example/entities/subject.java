@@ -1,6 +1,7 @@
 package com.example.entities;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 
 public class subject implements Serializable {
@@ -12,16 +13,26 @@ public class subject implements Serializable {
     private String QuocTich;
     private String QueQuan;
     private String NoiThuongTru;
-    private String CacLoiViPham;
+    private byte[] bytes;
 
     public subject(){
     }
+
     @Override
     public String toString() {
-        return "subject [ID=" + ID + ", HovaTen=" + HovaTen + ", NgayThangNamSinh=" + NgayThangNamSinh + ", GioiTinh=" + GioiTinh + ", QuocTich=" + QuocTich + ", QueQuan=" + QueQuan + ", NoiThuongTru=" + NoiThuongTru + ", CacLoiViPham=" + CacLoiViPham + "]";
+        return "subject{" +
+                "ID=" + ID +
+                ", HovaTen='" + HovaTen + '\'' +
+                ", NgayThangNamSinh=" + NgayThangNamSinh +
+                ", GioiTinh='" + GioiTinh + '\'' +
+                ", QuocTich='" + QuocTich + '\'' +
+                ", QueQuan='" + QueQuan + '\'' +
+                ", NoiThuongTru='" + NoiThuongTru + '\'' +
+                ", byteOfImage=" + Arrays.toString(bytes) +
+                '}';
     }
 
-    public subject(int ID, String hovaTen, Date ngayThangNamSinh, String gioiTinh, String quocTich, String queQuan, String noiThuongTru, String cacLoiViPham) {
+    public subject(int ID, String hovaTen, Date ngayThangNamSinh, String gioiTinh, String quocTich, String queQuan, String noiThuongTru, byte[] bytes) {
         this.ID = ID;
         HovaTen = hovaTen;
         NgayThangNamSinh = ngayThangNamSinh;
@@ -29,10 +40,19 @@ public class subject implements Serializable {
         QuocTich = quocTich;
         QueQuan = queQuan;
         NoiThuongTru = noiThuongTru;
-        CacLoiViPham = cacLoiViPham;
+        this.bytes = bytes;
+    }
+    public subject(int ID, String hovaTen, Date ngayThangNamSinh, String gioiTinh, String quocTich, String queQuan, String noiThuongTru) {
+        this.ID = ID;
+        HovaTen = hovaTen;
+        NgayThangNamSinh = ngayThangNamSinh;
+        GioiTinh = gioiTinh;
+        QuocTich = quocTich;
+        QueQuan = queQuan;
+        NoiThuongTru = noiThuongTru;
     }
     public String getAll(){
-        return getID() + getHovaTen() + getNgayThangNamSinh() + getGioiTinh() + getQuocTich() + getQueQuan() + getNoiThuongTru() + getCacLoiViPham();
+        return getID() + getHovaTen() + getNgayThangNamSinh() + getGioiTinh() + getQuocTich() + getQueQuan() + getNoiThuongTru();
     }
 
     public int getID() {
@@ -91,11 +111,12 @@ public class subject implements Serializable {
         NoiThuongTru = noiThuongTru;
     }
 
-    public String getCacLoiViPham() {
-        return CacLoiViPham;
+    public byte[] getBytes() {
+        return bytes;
     }
 
-    public void setCacLoiViPham(String cacLoiViPham) {
-        CacLoiViPham = cacLoiViPham;
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
     }
+
 }

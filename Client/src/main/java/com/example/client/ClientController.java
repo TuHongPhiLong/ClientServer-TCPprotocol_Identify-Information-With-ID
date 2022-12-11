@@ -3,6 +3,7 @@ package com.example.client;
 import com.example.entities.account;
 import com.example.entities.error;
 import com.example.entities.subject;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,16 +13,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.awt.*;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -101,11 +108,20 @@ public class ClientController extends Component implements Initializable {
     @FXML
     private TableView<error> table_error;
     @FXML
-    private TextField tF_idSubject;
+    public TextField tF_idSubject;
+    @FXML
+    public TextField tF_TenLoiViPham;
+    @FXML
+    public TextField tF_MucDoPhat;
+    @FXML
+    public DatePicker datepicker;
+    @FXML
+    public TextField tF_GhiChu;
+
+
 
 
     ObservableList<error> list_error;
-
 
     @FXML
     void setbtn_page_profile(ActionEvent event) {
@@ -123,8 +139,8 @@ public class ClientController extends Component implements Initializable {
 
     //Kết nối với Server
     private Socket socket;
-    private com.example.entities.subject subject;
-    private com.example.entities.account account;
+    private subject subject;
+    private account account;
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private boolean kiemTraTaiKhoan;
@@ -147,7 +163,7 @@ public class ClientController extends Component implements Initializable {
                 int id = Integer.parseInt(String.valueOf(tF_UserName.getText()));
                 String password = String.valueOf(tF_PassWord.getText());
                 account = new account(id, password);
-
+                //cach 1:
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -168,15 +184,23 @@ public class ClientController extends Component implements Initializable {
                                     System.out.println("Account sai, nhap lai!!!");
                                     socket.close();
                                 }
-
                             }
                             while (true) {
                                 subject = (subject) in.readObject();
+                                List<error> list = (List<error>) in.readObject();
+
+                                list_error = FXCollections.observableList(list);
 
                                 System.out.println(subject.toString());
-                                System.out.println("Da nhan subject");
+                                System.out.println("Da nhan subject va error cua subject");
+                                break;
                             }
+                            while (true){
+                                List<error> list = (List<error>) in.readObject();
 
+                                list_error = FXCollections.observableList(list);
+                                System.out.println(list_error);
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -209,6 +233,25 @@ public class ClientController extends Component implements Initializable {
             throw new RuntimeException(e);
         }
     }
+    private void sendError() {
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            error error = new error();
+            error.setTenLoiViPham(tF_TenLoiViPham.getText());
+            error.setMucDoPhat(tF_MucDoPhat.getText());
+            String date = datepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            error.setNgayThangNam(formatter.parse(date));
+            error.setGhiChu(tF_GhiChu.getText());
+
+            out.writeObject(error);
+            out.flush();
+
+            System.out.println(error);
+            System.out.println("Da gui error cua subject de them loi vi pham");
+        } catch (IOException | ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
     void setbtn_page_search(ActionEvent event) {
@@ -218,7 +261,7 @@ public class ClientController extends Component implements Initializable {
     }
 
     @FXML
-    void setbtn_search(ActionEvent event) throws IOException, InterruptedException {
+    void setbtn_search() throws IOException, InterruptedException {
         lbl_ID.setText(String.valueOf(subject.getID()));
         lbl_HovaTen.setText(String.valueOf(subject.getHovaTen()));
         lbl_NgayThangNamSinh.setText(String.valueOf(subject.getNgayThangNamSinh()));
@@ -226,6 +269,16 @@ public class ClientController extends Component implements Initializable {
         lbl_QueQuan.setText(String.valueOf(subject.getQueQuan()));
         lbl_QuocTich.setText(String.valueOf(subject.getQuocTich()));
         lbl_NoiThuongTru.setText(String.valueOf(subject.getNoiThuongTru()));
+        try {
+            byte[] b = subject.getBytes();
+
+            Image image = new Image(new ByteArrayInputStream(b));
+            imageView1.setImage(image);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        UpdateTable_error();
 
         pane_page_search.setVisible(true);
     }
@@ -241,8 +294,13 @@ public class ClientController extends Component implements Initializable {
     }
 
     @FXML
-    void setBtn_addError() {
-        pane_page_addError.setVisible(true);
+    void setBtn_addError() throws InterruptedException, IOException {
+        sendError();
+        pane_page_addError.setVisible(false);
+        setbtn_search();
+
+
+
     }
 
 
@@ -256,14 +314,12 @@ public class ClientController extends Component implements Initializable {
         pane_page_addError.setVisible(false);
     }
 
-
     public void UpdateTable_error() {
         col_TenLoiViPham.setCellValueFactory(new PropertyValueFactory<error, String>("TenLoiViPham"));
         col_MucDoPhat.setCellValueFactory(new PropertyValueFactory<error, String>("MucDoPhat"));
         col_NgayThangNam.setCellValueFactory(new PropertyValueFactory<error, String>("NgayThangNam"));
         col_GhiChu.setCellValueFactory(new PropertyValueFactory<error, String>("GhiChu"));
 
-        list_error = null;
         table_error.setItems(list_error);
     }
 

@@ -1,9 +1,9 @@
 package com.example.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class error {
-    private int ID;
+public class error implements Serializable {
     private String TenLoiViPham;
     private String MucDoPhat;
     private Date NgayThangNam;
@@ -12,19 +12,21 @@ public class error {
     public error(){
     }
 
-    public error( String tenLoiViPham, String mucDoPhat, Date ngayThangNam, String ghiChu) {
+    @Override
+    public String toString() {
+        return "error{" +
+                ", TenLoiViPham='" + TenLoiViPham + '\'' +
+                ", MucDoPhat='" + MucDoPhat + '\'' +
+                ", NgayThangNam=" + NgayThangNam +
+                ", GhiChu='" + GhiChu + '\'' +
+                '}';
+    }
+
+    public error(String tenLoiViPham, String mucDoPhat, Date ngayThangNam, String ghiChu) {
         TenLoiViPham = tenLoiViPham;
         MucDoPhat = mucDoPhat;
         NgayThangNam = ngayThangNam;
         GhiChu = ghiChu;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
     }
 
     public String getTenLoiViPham() {
