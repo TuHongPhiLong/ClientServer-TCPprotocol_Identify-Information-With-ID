@@ -1,7 +1,7 @@
 package com.example.server;
 
-import com.example.entities.error;
-import com.example.entities.subject;
+import com.example.server.model.error;
+import com.example.server.model.subject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;

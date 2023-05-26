@@ -1,8 +1,8 @@
 package com.example.server;
 
-import com.example.entities.account;
-import com.example.entities.error;
-import com.example.entities.subject;
+import com.example.server.model.account;
+import com.example.server.model.error;
+import com.example.server.model.subject;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -87,7 +87,7 @@ public class ServerThread implements Runnable{
 
     private Boolean resultCompareAccount() throws SQLException {
         conn = ConnectDB.ConnectDb();
-        com.example.entities.account account1 = new account();
+        account account1 = new account();
 
         String value1 = String.valueOf(account.getId());//trong data là id
 

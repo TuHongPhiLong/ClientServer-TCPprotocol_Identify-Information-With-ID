@@ -1,10 +1,11 @@
 package com.example.server;
 
-import com.example.entities.account;
-import com.example.entities.error;
-import com.example.entities.subject;
+
 import com.example.library.identifyInformationWithPictures_ClientServerSocket;
 import com.example.library.sendAndReceiveSubject_ClientServerSocket;
+import com.example.server.model.error;
+import com.example.server.model.subject;
+import com.example.server.model.account;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,7 +45,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.concurrent.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import static java.lang.Integer.parseInt;
 
@@ -266,7 +269,7 @@ public class ServerController extends Component implements Initializable {
 
     }
 
-    private com.example.entities.subject resultCompareIdSubject() {
+    private com.example.server.model.subject resultCompareIdSubject() {
         conn = ConnectDB.ConnectDb();
         subject subject = new subject();
         try {
@@ -321,8 +324,6 @@ public class ServerController extends Component implements Initializable {
             JOptionPane.showMessageDialog(null, "Thêm thành công!");
             setBtn_cancel2();
             UpdateTable_subject();
-
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

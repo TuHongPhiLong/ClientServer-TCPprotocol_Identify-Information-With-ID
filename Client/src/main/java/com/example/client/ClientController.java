@@ -1,8 +1,8 @@
 package com.example.client;
 
-import com.example.entities.account;
-import com.example.entities.error;
-import com.example.entities.subject;
+import com.example.client.model.account;
+import com.example.client.model.error;
+import com.example.client.model.subject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -117,9 +117,6 @@ public class ClientController extends Component implements Initializable {
     public DatePicker datepicker;
     @FXML
     public TextField tF_GhiChu;
-
-
-
 
     ObservableList<error> list_error;
 
@@ -302,7 +299,6 @@ public class ClientController extends Component implements Initializable {
 
 
     }
-
 
     @FXML
     void setBtn_cancel() { // Trở vê pane_search

@@ -1,6 +1,6 @@
 package com.example.server;
 
-import com.example.entities.subject;
+import com.example.server.model.subject;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,7 +17,7 @@ public class FindSubject {
 
 
     private Socket socket;
-    private com.example.entities.subject subject;
+    private subject subject;
     private Integer idSubject;
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -59,7 +59,7 @@ public class FindSubject {
             e.printStackTrace();
         }
     }
-    private com.example.entities.subject resultCompareIdSubject() {
+    private subject resultCompareIdSubject() {
         conn = ConnectDB.ConnectDb();
         subject subject = new subject();
         try {
@@ -88,7 +88,7 @@ public class FindSubject {
             public void run() {
                 try {
                     while (true) {
-                        subject = (com.example.entities.subject) in.readObject();
+                        subject = (subject) in.readObject();
 
                         System.out.println(subject.toString());
                         System.out.println("Da nhan subject");

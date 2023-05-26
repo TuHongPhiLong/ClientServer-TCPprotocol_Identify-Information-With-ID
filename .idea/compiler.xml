@@ -6,10 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Library" />
         <module name="Server" />
         <module name="Client" />
-        <module name="Entities" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

@@ -1,4 +1,4 @@
-package com.example.entities;
+package com.example.client.model;
 
 public class image {
     private String URL;

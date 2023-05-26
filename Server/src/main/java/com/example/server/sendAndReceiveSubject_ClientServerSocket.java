@@ -1,6 +1,7 @@
-package com.example.library;
+package com.example.server;
 
-import com.example.entities.subject;
+
+import com.example.server.model.subject;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -31,7 +32,7 @@ public class sendAndReceiveSubject_ClientServerSocket {
             public void run() {
                 while (true) {
                     try {
-                        subject1 = (com.example.entities.subject) in.readObject();
+                        subject1 = (subject) in.readObject();
 
                         System.out.println(subject1.toString());
                         System.out.println("Da nhan subject");
