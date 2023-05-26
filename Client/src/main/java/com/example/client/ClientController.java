@@ -134,13 +134,13 @@ public class ClientController extends Component implements Initializable {
         pane_search.setVisible(false);
     }
 
-    //Kết nối với Server
+    //Connect to Server
     private Socket socket;
     private subject subject;
     private account account;
     private ObjectOutputStream out;
     private ObjectInputStream in;
-    private boolean kiemTraTaiKhoan;
+    private boolean checkAccount;
 
 
     @FXML
@@ -151,7 +151,7 @@ public class ClientController extends Component implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning Dialog");
                 alert.setHeaderText("Warning");
-                alert.setContentText("Nhập tên đăng nhập và mật khẩu!");
+                alert.setContentText("Enter username and password!");
 
                 alert.showAndWait();
             } else {
@@ -160,7 +160,6 @@ public class ClientController extends Component implements Initializable {
                 int id = Integer.parseInt(String.valueOf(tF_UserName.getText()));
                 String password = String.valueOf(tF_PassWord.getText());
                 account = new account(id, password);
-                //cach 1:
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -171,14 +170,14 @@ public class ClientController extends Component implements Initializable {
                             sendAcccount(account);
 
                             while (true) {
-                                kiemTraTaiKhoan = in.readBoolean();
-                                System.out.println("Da nhan ket qua cua Server: " + kiemTraTaiKhoan);
-                                if (kiemTraTaiKhoan) {
-                                    System.out.println("Account dung");
-                                    System.out.println("\nDa ket noi!");
+                                checkAccount = in.readBoolean();
+                                System.out.println("Got results from server: " + checkAccount);
+                                if (checkAccount) {
+                                    System.out.println("Account right");
+                                    System.out.println("\nConnected!");
                                     break;
                                 } else {
-                                    System.out.println("Account sai, nhap lai!!!");
+                                    System.out.println("Account wrong, enter again!!!");
                                     socket.close();
                                 }
                             }
@@ -189,7 +188,7 @@ public class ClientController extends Component implements Initializable {
                                 list_error = FXCollections.observableList(list);
 
                                 System.out.println(subject.toString());
-                                System.out.println("Da nhan subject va error cua subject");
+                                System.out.println("Got subject and error of subject");
                                 break;
                             }
                             while (true){
@@ -214,7 +213,7 @@ public class ClientController extends Component implements Initializable {
         try {
             out.writeInt(Integer.parseInt(tF_idSubject.getText()));
             out.flush();
-            System.out.println("Da gui id cua subject");
+            System.out.println("Sent the subject's id");
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -225,7 +224,7 @@ public class ClientController extends Component implements Initializable {
         try {
             out.writeObject(account);
             out.flush();
-            System.out.println("Da gui Acount can kiem tra");
+            System.out.println("Sent Acount to check");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -244,7 +243,7 @@ public class ClientController extends Component implements Initializable {
             out.flush();
 
             System.out.println(error);
-            System.out.println("Da gui error cua subject de them loi vi pham");
+            System.out.println("Submitted object's error to add violation");
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }

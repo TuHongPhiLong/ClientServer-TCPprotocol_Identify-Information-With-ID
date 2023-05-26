@@ -35,7 +35,7 @@ public class sendAndReceiveSubject_ClientServerSocket {
                         subject1 = (subject) in.readObject();
 
                         System.out.println(subject1.toString());
-                        System.out.println("Da nhan subject");
+                        System.out.println("Received subject");
                     } catch (IOException | ClassNotFoundException e) {
                         throw new RuntimeException(e);
                     }
@@ -49,7 +49,7 @@ public class sendAndReceiveSubject_ClientServerSocket {
 
         out.writeObject(subject);
         out.flush();
-        System.out.println("Da gui subject");
+        System.out.println("Sent subject");
     }
 
 

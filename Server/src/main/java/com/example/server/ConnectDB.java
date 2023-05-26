@@ -15,7 +15,7 @@ public class ConnectDB {
     public static Connection ConnectDb() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/identifyinformationwithpictures_clientserverdata", "root", "");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/identifyinformationwithpictures_clientserverdata", "root", "Long2606");
             return conn;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);

@@ -1,11 +1,9 @@
 package com.example.server;
 
 
-import com.example.library.identifyInformationWithPictures_ClientServerSocket;
-import com.example.library.sendAndReceiveSubject_ClientServerSocket;
+import com.example.server.model.account;
 import com.example.server.model.error;
 import com.example.server.model.subject;
-import com.example.server.model.account;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -196,7 +194,7 @@ public class ServerController extends Component implements Initializable {
     private Button btn_uploadFromFile;
     ObservableList<String> list_GioiTinh = FXCollections.observableArrayList("Nam", "Nữ");
     Connection conn = null;
-    private identifyInformationWithPictures_ClientServerSocket mySocketReceiveImage;
+
     private sendAndReceiveSubject_ClientServerSocket mySocketSendSubject;
 
 
@@ -222,7 +220,7 @@ public class ServerController extends Component implements Initializable {
         pane_edit.setVisible(false);
     }
 
-    //Khởi tạo server và cụm chức năng gửi và nhận
+    //initialization server and function cluster send and receive
     private TextField tF_idSubject;
     private static Socket socket;
     private ObjectOutputStream out;
@@ -239,8 +237,8 @@ public class ServerController extends Component implements Initializable {
     @FXML
     private void setBtn_initServer() throws IOException {
         ServerSocket serverSocket = new ServerSocket(parseInt(tF_Port.getText()));
-        System.out.println("Da khoi tao Server");
-        System.out.println("Dang cho Client");
+        System.out.println("initialized Server");
+        System.out.println("waiting for client");
 
         ThreadPoolExecutor executor = new ThreadPoolExecutor(
                 10,//corePoolSize
@@ -249,7 +247,7 @@ public class ServerController extends Component implements Initializable {
                 TimeUnit.SECONDS,
                 new ArrayBlockingQueue<>(8) // queueCapacity
         );
-        //cach 2:
+
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -269,7 +267,7 @@ public class ServerController extends Component implements Initializable {
 
     }
 
-    private com.example.server.model.subject resultCompareIdSubject() {
+    private subject resultCompareIdSubject() {
         conn = ConnectDB.ConnectDb();
         subject subject = new subject();
         try {
@@ -321,7 +319,7 @@ public class ServerController extends Component implements Initializable {
             pst.setString(7, tF_NoiThuongTru.getText());
             pst.setBinaryStream(8, fileInput, imageFile.length());
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Thêm thành công!");
+            JOptionPane.showMessageDialog(null, "add successfully!");
             setBtn_cancel2();
             UpdateTable_subject();
         } catch (Exception e) {
@@ -333,7 +331,7 @@ public class ServerController extends Component implements Initializable {
     void setbtn_uploadFromFile() {
         Stage stage = (Stage) pane_page_add.getScene().getWindow();
         FileChooser fc = new FileChooser();
-        fc.setTitle("Chọn hình từ file trên máy tính");
+        fc.setTitle("choose image from your computer");
         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image FIles", "*.jpg", "*png");
         fc.getExtensionFilters().add(imageFilter);
         File file = fc.showOpenDialog(stage);
@@ -347,7 +345,7 @@ public class ServerController extends Component implements Initializable {
     }
 
     //
-    //Nút Xoá
+    //function delete
     @FXML
     void setBtn_delete() {
         conn = ConnectDB.ConnectDb();
@@ -356,7 +354,7 @@ public class ServerController extends Component implements Initializable {
             String sql = "delete from subject where ID_subject='" + value1 + "' ";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Xoá thành công!");
+            JOptionPane.showMessageDialog(null, "delete add successfully!");
             setBtn_cancel();
             UpdateTable_subject();
             cleanTextfield();
@@ -367,7 +365,7 @@ public class ServerController extends Component implements Initializable {
     }
 
     //
-    //Cụm chức năng Sửa
+    //function cluster modify
     @FXML
     void setBtn_page_modify(ActionEvent event) {
         pane_page_modify.setVisible(true);
@@ -395,7 +393,7 @@ public class ServerController extends Component implements Initializable {
             pst.setBinaryStream(7, fileInput, imageFile.length());
             pst.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Sửa thành công!");
+            JOptionPane.showMessageDialog(null, "Edit add successfully!");
             setBtn_cancel();
             UpdateTable_subject();
             cleanTextfield();
@@ -421,7 +419,7 @@ public class ServerController extends Component implements Initializable {
                 Image image = new Image(input, 151.181, 226.771, true, true);
                 imageView2.setImage(image);
             } else {
-                JOptionPane.showMessageDialog(null, "Hãy cập nhập hình ảnh");
+                JOptionPane.showMessageDialog(null, "please update avatar");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -432,7 +430,7 @@ public class ServerController extends Component implements Initializable {
     void setbtn_uploadFromFile1() {
         Stage stage = (Stage) pane_page_modify.getScene().getWindow();
         FileChooser fc = new FileChooser();
-        fc.setTitle("Chọn hình từ file trên máy tính");
+        fc.setTitle("choose image from your computer");
         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image FIles", "*.jpg", "*png");
         fc.getExtensionFilters().add(imageFilter);
         File file = fc.showOpenDialog(stage);
@@ -446,7 +444,7 @@ public class ServerController extends Component implements Initializable {
     }
     //
 
-    //Tìm kiếm đang lỗi
+    //function find
     //Cách 1:
     @FXML
     void search_subject1() {
@@ -521,7 +519,7 @@ public class ServerController extends Component implements Initializable {
 //    }
     //
 
-    //Cụm chức năng Thêm lỗi
+    //function cluster add error
     @FXML
     void setBtn_page_addError(ActionEvent event) throws IOException {
         pane_page_addError.setVisible(true);
@@ -540,7 +538,7 @@ public class ServerController extends Component implements Initializable {
             String sql = "insert into error(ID_error, TenLoiViPham, MucDoPhat, NgayThangNam, GhiChu, ID_subject) values('" + value1 + "', '" + value3 + "', '" + value4 + "', '" + value5 + "', '" + value6 + "', '" + value7 + "')";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Thêm lỗi vi phạm thành công");
+            JOptionPane.showMessageDialog(null, "add error successfully");
             setBtn_cancel();
             cleanTextfield();
             conn.close();
@@ -574,7 +572,7 @@ public class ServerController extends Component implements Initializable {
                 Image image = new Image(input, 151.181, 226.771, true, true);
                 imageView.setImage(image);
             } else {
-                JOptionPane.showMessageDialog(null, "Hãy cập nhập hình ảnh");
+                JOptionPane.showMessageDialog(null, "please update avatar");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -605,7 +603,7 @@ public class ServerController extends Component implements Initializable {
         table_error.setItems(list_error);
     }
 
-    //Khi chọn đối trượng trong tableView
+    //select on tableview
     @FXML
     void getSelected(MouseEvent event) throws ParseException {
         int index = -1;

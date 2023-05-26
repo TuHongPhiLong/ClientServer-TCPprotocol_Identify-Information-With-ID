@@ -107,7 +107,7 @@ public class ServerThread implements Runnable{
 
             System.out.println(resultSubjectCompareIdSubject());
             System.out.println(resultErrorCompareIdSubject());
-            System.out.println("Da gui subject va error cua subject");
+            System.out.println("Sent subject and subject's error");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -165,7 +165,7 @@ public class ServerThread implements Runnable{
     public void sendAccount(account account) throws IOException {
         out.writeObject(account);
         out.flush();
-        System.out.println("Da gui account cho Server kiem tra");
+        System.out.println("Sent account for Server check");
     }
     public void receiveBoolean() {
         Thread th = new Thread() {
@@ -174,16 +174,16 @@ public class ServerThread implements Runnable{
                     while (true) {
                         boolean ketQuaKiemTra = in.readBoolean();
 
-                        System.out.println("Da nhan ket qua tu Server" + ketQuaKiemTra);
+                        System.out.println("Received result from Server" + ketQuaKiemTra);
                         if (ketQuaKiemTra == true) {
-                            System.out.println("Account dung");
-                            System.out.println("\nDa ket noi!");
+                            System.out.println("Account right");
+                            System.out.println("\nConnected!");
                             out.close();
                             in.close();
                             socket.close();
                             break;
                         } else {
-                            System.out.println("Account sai, nhap lai!!!");
+                            System.out.println("Account wrong, enter again!!!");
                         }
                     }
                 } catch (IOException e) {
