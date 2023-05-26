@@ -1,14 +1,13 @@
-module com.example.server {
+module module.com.example.server {
     requires javafx.controls;
-    requires javafx.fxml;
-
     requires java.desktop;
     requires java.sql;
-
     requires mysql.connector.java;
     requires javafx.swing;
+    requires javafx.fxml;
 
 
     opens com.example.server to javafx.fxml;
     exports com.example.server;
+    exports com.example.server.model;
 }
