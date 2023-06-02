@@ -1,4 +1,4 @@
-package com.example.client.model;
+package com.example.entities;
 
 public class MyFile {
     private int id;

@@ -1,4 +1,4 @@
-package com.example.server.model;
+package com.example.entities;
 
 import java.io.Serializable;
 

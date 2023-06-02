@@ -1,7 +1,7 @@
 package com.example.server;
 
 
-import com.example.server.model.subject;
+import com.example.entities.subject;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

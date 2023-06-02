@@ -1,9 +1,9 @@
 package com.example.server;
 
 
-import com.example.server.model.account;
-import com.example.server.model.error;
-import com.example.server.model.subject;
+import com.example.entities.account;
+import com.example.entities.error;
+import com.example.entities.subject;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -529,12 +529,12 @@ public class ServerController extends Component implements Initializable {
     void setBtn_addError(ActionEvent event) {
         conn = ConnectDB.ConnectDb();
         try {
-            String value1 = tF_ID2.getText();
+            String value1 = tF_ID2.getText();//id error
             String value3 = tF_TenLoiViPham2.getText();
             String value4 = tF_MucDoPhat2.getText();
             String value5 = datepicker2.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             String value6 = tF_GhiChu2.getText();
-            String value7 = lbl_ID_subject.getText();
+            String value7 = lbl_ID_subject.getText();//id subject
             String sql = "insert into error(ID_error, TenLoiViPham, MucDoPhat, NgayThangNam, GhiChu, ID_subject) values('" + value1 + "', '" + value3 + "', '" + value4 + "', '" + value5 + "', '" + value6 + "', '" + value7 + "')";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.execute();

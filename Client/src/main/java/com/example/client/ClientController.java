@@ -1,8 +1,8 @@
 package com.example.client;
 
-import com.example.client.model.account;
-import com.example.client.model.error;
-import com.example.client.model.subject;
+import com.example.entities.account;
+import com.example.entities.error;
+import com.example.entities.subject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,7 +25,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
-import java.text.ParseException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -236,7 +236,8 @@ public class ClientController extends Component implements Initializable {
             error.setTenLoiViPham(tF_TenLoiViPham.getText());
             error.setMucDoPhat(tF_MucDoPhat.getText());
             String date = datepicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            error.setNgayThangNam(formatter.parse(date));
+            //error.setNgayThangNam(formatter.parse(date));
+            error.setNgayThangNam(Date.valueOf(date));
             error.setGhiChu(tF_GhiChu.getText());
 
             out.writeObject(error);
@@ -244,7 +245,7 @@ public class ClientController extends Component implements Initializable {
 
             System.out.println(error);
             System.out.println("Submitted object's error to add violation");
-        } catch (IOException | ParseException e) {
+        } catch (IOException  e) {
             throw new RuntimeException(e);
         }
     }

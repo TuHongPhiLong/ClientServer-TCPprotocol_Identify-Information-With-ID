@@ -1,8 +1,8 @@
 package com.example.server;
 
-import com.example.server.model.account;
-import com.example.server.model.error;
-import com.example.server.model.subject;
+import com.example.entities.account;
+import com.example.entities.error;
+import com.example.entities.subject;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -150,7 +150,8 @@ public class ServerThread implements Runnable{
             DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
             String value3 = error.getTenLoiViPham();
             String value4 = error.getMucDoPhat();
-            String value5 = dateformat.format(error.getNgayThangNam());
+            //String value5 = dateformat.format(error.getNgayThangNam());
+            String value5 = String.valueOf(error.getNgayThangNam());
             String value6 = error.getGhiChu();
             String value7 = idSubject.toString();
             String sql = "insert into error(TenLoiViPham, MucDoPhat, NgayThangNam, GhiChu, ID_subject) values( '" + value3 + "', '" + value4 + "', '" + value5 + "', '" + value6 + "', '" + value7 + "')";

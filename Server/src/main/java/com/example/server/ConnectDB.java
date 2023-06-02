@@ -1,7 +1,8 @@
 package com.example.server;
 
-import com.example.server.model.error;
-import com.example.server.model.subject;
+
+import com.example.entities.error;
+import com.example.entities.subject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
@@ -15,7 +16,7 @@ public class ConnectDB {
     public static Connection ConnectDb() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/identifyinformationwithpictures_clientserverdata", "root", "Long2606");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/identifyinformationwithid_clientservertcp_ip", "root", "Long2606");
             return conn;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
