@@ -1,7 +1,7 @@
-package com.example.client.model;
+package com.example.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 public class error implements Serializable {
     private String TenLoiViPham;
