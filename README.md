@@ -17,6 +17,10 @@ Skype: https://join.skype.com/invite/uem4z3Va75Vm
   #Idea: in the field of traffic, to make it more convenient to check information about traffic participants, traffic police need an information management software to help look up information quickly. 
         Stemming from that need, it is necessary to develop a software to look up personal information when participating in traffic to help control traffic participants become more convenient and faster.
 
+Multi-Thread
+
+![image](https://github.com/TuHongPhiLong/ClientServer-TCPprotocol_Identify-Information-With-ID/assets/88416588/3bf944eb-b747-4081-b283-8c8142835ef9)
+
 2.How to Install and Run the Project
 
 #Open project in inteliji idea and using sdk18
