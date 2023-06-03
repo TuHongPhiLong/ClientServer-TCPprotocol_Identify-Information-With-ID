@@ -62,6 +62,9 @@ Skype: https://join.skype.com/invite/uem4z3Va75Vm
   
   ![image](https://github.com/TuHongPhiLong/identifyInformationWithIDSubject_ClientServer/assets/88416588/2cb65b13-f858-40d0-a61e-2eeb13111f67)
  
+Multi-Thread
+
+![image](https://github.com/TuHongPhiLong/ClientServer-TCPprotocol_Identify-Information-With-ID/assets/88416588/3bf944eb-b747-4081-b283-8c8142835ef9)
 
 
 #If you have problems or questions don't hesitate to contact me at the addresses below
